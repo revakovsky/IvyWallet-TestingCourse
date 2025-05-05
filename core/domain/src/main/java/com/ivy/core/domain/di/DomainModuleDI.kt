@@ -15,4 +15,5 @@ object DomainModuleDI {
     fun provideDispatcherProvider(): DispatcherProvider {
         return StandardDispatchers()
     }
+
 }

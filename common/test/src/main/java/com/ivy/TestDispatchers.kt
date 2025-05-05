@@ -8,14 +8,19 @@ import kotlinx.coroutines.test.TestDispatcher
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class TestDispatchers(
-    val testDispatcher: TestDispatcher = StandardTestDispatcher()
-): DispatcherProvider {
+    private val testDispatchers: TestDispatcher = StandardTestDispatcher()
+) : DispatcherProvider {
+
     override val main: CoroutineDispatcher
-        get() = testDispatcher
+        get() = testDispatchers
+
     override val io: CoroutineDispatcher
-        get() = testDispatcher
+        get() = testDispatchers
+
     override val default: CoroutineDispatcher
-        get() = testDispatcher
+        get() = testDispatchers
+
     override val unconfined: CoroutineDispatcher
-        get() = testDispatcher
+        get() = testDispatchers
+
 }
