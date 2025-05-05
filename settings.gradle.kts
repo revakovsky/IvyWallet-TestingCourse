@@ -7,7 +7,7 @@ dependencyResolutionManagement {
         maven(url = "https://jitpack.io")
     }
 }
-rootProject.name = "Ivy Wallet"
+rootProject.name = "Ivy Wallet - My Version"
 include(":app")
 include(":common:main")
 include(":common:android-test")
