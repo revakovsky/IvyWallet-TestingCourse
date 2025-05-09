@@ -22,6 +22,7 @@ class DatePickerViewModel @Inject constructor(
     @ApplicationContext private val appContext: Context,
     timeProvider: TimeProvider
 ) : SimpleFlowViewModel<DatePickerState, DatePickerEvent>() {
+
     companion object {
         const val YEARS_FROM_NOW_SUPPORT = 100
     }
@@ -103,4 +104,5 @@ class DatePickerViewModel @Inject constructor(
         selectedDate.value = selectedDate.value.withYear(event.year.value)
     }
     // endregion
+
 }

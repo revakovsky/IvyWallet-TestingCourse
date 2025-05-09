@@ -16,7 +16,7 @@ import java.time.LocalDate
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
-class DatePickerViewModelTest: IvyAndroidTest() {
+class DatePickerViewModelTest : IvyAndroidTest() {
 
     @get:Rule
     val mainCoroutineRule = MainCoroutineRule()
@@ -36,6 +36,7 @@ class DatePickerViewModelTest: IvyAndroidTest() {
         // Making sure, the test runs with a month != February, so
         // February can be selected
         setDate(LocalDate.of(2023, 1, 1))
+
         viewModel.uiState.test {
             awaitItem() // Skip initial emission
 
@@ -52,4 +53,5 @@ class DatePickerViewModelTest: IvyAndroidTest() {
             )
         }
     }
+
 }
