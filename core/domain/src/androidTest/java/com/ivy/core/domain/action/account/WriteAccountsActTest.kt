@@ -4,7 +4,6 @@ import assertk.Assert
 import assertk.assertThat
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
-import com.ivy.account
 import com.ivy.common.androidtest.IvyAndroidTest
 import com.ivy.core.domain.action.data.Modify
 import com.ivy.core.persistence.dao.account.AccountDao
@@ -12,6 +11,7 @@ import com.ivy.core.persistence.entity.account.AccountEntity
 import com.ivy.data.Sync
 import com.ivy.data.SyncState
 import com.ivy.data.account.Account
+import com.ivy.data_generators.account
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -24,13 +24,14 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltAndroidTest
-class WriteAccountsActTest: IvyAndroidTest() {
+class WriteAccountsActTest : IvyAndroidTest() {
 
     @Inject
     lateinit var writeAccountsAct: WriteAccountsAct
 
     @Inject
     lateinit var accountDao: AccountDao
+
 
     @Test
     fun testSaveUpdateAccount() = runTest {
@@ -42,6 +43,7 @@ class WriteAccountsActTest: IvyAndroidTest() {
         val accountToSave = account().copy(
             sync = Sync(SyncState.Syncing, syncTime)
         )
+
         writeAccountsAct(Modify.save(accountToSave))
 
         val createdAccountFromDb = accountDao.findAllBlocking().first()
@@ -53,6 +55,7 @@ class WriteAccountsActTest: IvyAndroidTest() {
             name = "updated",
             currency = "CAD"
         )
+        
         writeAccountsAct(Modify.save(updatedAccount))
 
         val accountsFromDb = accountDao.findAllBlocking()
@@ -83,4 +86,5 @@ class WriteAccountsActTest: IvyAndroidTest() {
             )
         }
     }
+
 }

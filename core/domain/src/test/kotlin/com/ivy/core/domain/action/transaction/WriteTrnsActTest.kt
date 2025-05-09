@@ -3,12 +3,12 @@ package com.ivy.core.domain.action.transaction
 import assertk.assertThat
 import assertk.assertions.isEqualTo
 import assertk.assertions.isNotNull
-import com.ivy.core.domain.action.transaction.data_generators.account
-import com.ivy.core.domain.action.transaction.data_generators.attachment
-import com.ivy.core.domain.action.transaction.data_generators.tag
-import com.ivy.core.domain.action.transaction.data_generators.transaction
 import com.ivy.core.domain.algorithm.accountcache.InvalidateAccCacheAct
 import com.ivy.data.transaction.TransactionType
+import com.ivy.data_generators.account
+import com.ivy.data_generators.attachment
+import com.ivy.data_generators.tag
+import com.ivy.data_generators.transaction
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

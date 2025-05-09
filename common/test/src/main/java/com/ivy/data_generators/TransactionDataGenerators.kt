@@ -1,4 +1,4 @@
-package com.ivy.core.domain.action.transaction.data_generators
+package com.ivy.data_generators
 
 import com.ivy.data.Sync
 import com.ivy.data.SyncState
