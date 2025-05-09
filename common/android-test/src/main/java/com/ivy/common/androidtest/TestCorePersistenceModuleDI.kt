@@ -19,7 +19,6 @@ import com.ivy.core.persistence.dao.trn.TrnTagDao
 import com.ivy.core.persistence.di.CorePersistenceModuleDI
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
@@ -32,10 +31,12 @@ import javax.inject.Singleton
     replaces = [CorePersistenceModuleDI::class]
 )
 object TestCorePersistenceModuleDI {
+
     @Provides
     @Singleton
     fun provideIvyWalletDb(@ApplicationContext appContext: Context): IvyWalletCoreDb =
         Room.inMemoryDatabaseBuilder(appContext, IvyWalletCoreDb::class.java).build()
+
 
     @Provides
     @Singleton
@@ -64,7 +65,7 @@ object TestCorePersistenceModuleDI {
 
     @Provides
     @Singleton
-    fun provideRatesDao(db:IvyWalletCoreDb) : RatesDao =
+    fun provideRatesDao(db: IvyWalletCoreDb): RatesDao =
         db.ratesDao()
 
     @Provides
@@ -90,4 +91,5 @@ object TestCorePersistenceModuleDI {
     @Provides
     @Singleton
     fun provideAttachmentDao(db: IvyWalletCoreDb): AttachmentDao = db.attachmentDao()
+
 }

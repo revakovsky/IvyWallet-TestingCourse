@@ -17,15 +17,23 @@ abstract class IvyPlugin : Plugin<Project> {
 
         test(project)
         androidTest(project)
+
         lint(project)
         kspSourceSets(project)
     }
 
-//    private fun robolectric(project: Project) {
-//        project.androidLibrary().testOptions {
-//            unitTests.isIncludeAndroidResources = true
-//        }
-//    }
+    private fun androidTest(project: Project) {
+        project.dependencies {
+            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
+            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
+        }
+        project.configurations.getByName("androidTestImplementation") {
+            exclude(group = "io.mockk", module = "mockk-agent-jvm")
+        }
+        project.androidLibrary().defaultConfig {
+            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
+        }
+    }
 
     protected open fun test(project: Project) {
         project.dependencies {
@@ -48,19 +56,6 @@ abstract class IvyPlugin : Plugin<Project> {
         }
     }
 
-    private fun androidTest(project: Project) {
-        project.dependencies {
-            androidTestImplementation("com.willowtreeapps.assertk:assertk:${Versions.assertK}")
-            androidTestImplementation("io.mockk:mockk-android:${Versions.mockk}")
-        }
-        project.configurations.getByName("androidTestImplementation") {
-            exclude(group = "io.mockk", module = "mockk-agent-jvm")
-        }
-        project.androidLibrary().defaultConfig {
-            testInstrumentationRunner = "com.ivy.common.androidtest.HiltTestRunner"
-        }
-    }
-
     private fun applyPlugins(project: Project) {
         project.apply {
             plugin("android-library")
@@ -70,7 +65,7 @@ abstract class IvyPlugin : Plugin<Project> {
             plugin("com.google.devtools.ksp")
 
             //TODO: Enable if we migrate to kotlinx serialization
-    //            plugin("kotlinx-serialization")
+            //            plugin("kotlinx-serialization")
         }
     }
 

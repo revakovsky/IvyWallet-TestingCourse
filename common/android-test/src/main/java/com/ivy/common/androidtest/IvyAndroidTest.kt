@@ -27,6 +27,7 @@ abstract class IvyAndroidTest {
 
     protected lateinit var context: Context
 
+
     @Before
     open fun setUp() {
         context = ApplicationProvider.getApplicationContext()
@@ -48,8 +49,7 @@ abstract class IvyAndroidTest {
     }
 
     private fun clearDataStore() = runBlocking {
-        context.dataStore.edit {
-            it.clear()
-        }
+        context.dataStore.edit { it.clear() }
     }
+
 }
