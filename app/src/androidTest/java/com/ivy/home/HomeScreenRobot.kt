@@ -26,9 +26,7 @@ class HomeScreenRobot(
             composeRule.awaitIdle()
             composeRule.runOnUiThread {
                 navigator.navigate(Home.route) {
-                    popUpTo(Home.route) {
-                        inclusive = false
-                    }
+                    popUpTo(Home.route) { inclusive = false }
                 }
             }
         }
@@ -37,14 +35,14 @@ class HomeScreenRobot(
 
     fun openDateRangeSheet(timeProvider: TimeProvider): HomeScreenRobot {
         composeRule
-            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true)
+            .onNodeWithText(timeProvider.dateNow().month.name, ignoreCase = true, substring = true)
             .performClick()
         return this
     }
 
     fun selectMonth(monthName: String): HomeScreenRobot {
         composeRule
-            .onNodeWithText(monthName)
+            .onNodeWithText(monthName, ignoreCase = true, substring = true)
             .performClick()
         return this
     }
