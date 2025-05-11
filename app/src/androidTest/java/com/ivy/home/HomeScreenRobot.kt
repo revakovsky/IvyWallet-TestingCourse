@@ -4,26 +4,23 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasAnySibling
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollTo
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.ivy.IvyComposeRule
 import com.ivy.common.time.provider.TimeProvider
 import com.ivy.data.CurrencyCode
 import com.ivy.navigation.Navigator
 import com.ivy.navigation.destinations.main.Home
-import com.ivy.wallet.ui.RootActivity
 import kotlinx.coroutines.runBlocking
 
 class HomeScreenRobot(
     private val composeRule: IvyComposeRule
 ) {
+
     fun navigateTo(navigator: Navigator): HomeScreenRobot {
         runBlocking {
             composeRule.awaitIdle()
@@ -99,7 +96,7 @@ class HomeScreenRobot(
     }
 
     fun assertBalanceIsDisplayed(amount: Double, currency: CurrencyCode): HomeScreenRobot {
-        val formattedAmount = if(amount % 1.0 == 0.0) {
+        val formattedAmount = if (amount % 1.0 == 0.0) {
             amount.toInt().toString()
         } else amount.toString()
 

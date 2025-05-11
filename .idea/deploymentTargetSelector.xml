@@ -11,6 +11,9 @@
       <SelectionState runConfigName="testSaveUpdateAccount()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="testSelectingDateRange()">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

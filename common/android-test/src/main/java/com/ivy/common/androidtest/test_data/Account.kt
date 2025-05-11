@@ -4,7 +4,6 @@ import com.ivy.core.persistence.IvyWalletCoreDb
 import com.ivy.core.persistence.entity.account.AccountEntity
 import com.ivy.core.persistence.entity.trn.TransactionEntity
 import com.ivy.data.SyncState
-import com.ivy.data.account.Account
 import com.ivy.data.account.AccountState
 import java.time.Instant
 import java.util.UUID
@@ -16,14 +15,13 @@ suspend fun IvyWalletCoreDb.saveAccountWithTransactions(
     accountDao().save(listOf(accountEntity))
 
     val transactionsWithAccount = transactions.map {
-        it.copy(
-            accountId = accountEntity.id
-        )
+        it.copy(accountId = accountEntity.id)
     }
     transactionsWithAccount.forEach {
         trnDao().save(saveTrnData(it))
     }
 }
+
 
 fun accountEntity(): AccountEntity {
     return AccountEntity(

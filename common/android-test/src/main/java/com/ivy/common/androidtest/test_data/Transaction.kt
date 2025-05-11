@@ -29,6 +29,7 @@ fun transactionEntity(): TransactionEntity {
     )
 }
 
+
 fun transactionWithTime(
     time: Instant,
     transaction: TransactionEntity = transactionEntity()
@@ -38,6 +39,7 @@ fun transactionWithTime(
         lastUpdated = time
     )
 }
+
 
 fun saveTrnData(entity: TransactionEntity = transactionEntity()): SaveTrnData {
     return SaveTrnData(

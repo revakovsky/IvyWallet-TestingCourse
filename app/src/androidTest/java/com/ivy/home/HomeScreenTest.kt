@@ -14,7 +14,6 @@ import com.ivy.navigation.destinations.main.Home
 import com.ivy.wallet.ui.RootActivity
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.time.Instant
@@ -23,13 +22,14 @@ import java.time.ZoneId
 import javax.inject.Inject
 
 @HiltAndroidTest
-class HomeScreenTest: IvyAndroidTest() {
+class HomeScreenTest : IvyAndroidTest() {
 
     @get:Rule
     val composeRule = createAndroidComposeRule<RootActivity>()
 
     @Inject
     lateinit var navigator: Navigator
+
 
     @Test
     fun testSelectingDateRange() = runBlocking<Unit> {
@@ -49,17 +49,42 @@ class HomeScreenTest: IvyAndroidTest() {
             transactions = listOf(transaction1, transaction2, transaction3)
         )
 
-        HomeScreenRobot(composeRule)
-            .navigateTo(navigator)
-            .openDateRangeSheet(timeProvider)
-            .selectMonth("August")
-            .assertDateIsDisplayed(1, "August")
-            .assertDateIsDisplayed(31, "August")
-            .clickDone()
-            .clickUpcoming()
-            .assertTransactionDoesNotExist("Transaction1")
-            .assertTransactionIsDisplayed("Transaction2")
-            .assertTransactionIsDisplayed("Transaction3")
+        composeRule.awaitIdle()
+        composeRule.runOnUiThread {
+            navigator.navigate(Home.route)
+        }
+
+        composeRule
+            .onNodeWithText(date.month.name, ignoreCase = true, substring = true)
+            .assertExists()
+            .performClick()
+
+        composeRule
+            .onNodeWithText("August", substring = true, ignoreCase = true)
+            .assertIsDisplayed()
+            .performClick()
+
+        composeRule.onNodeWithText("Aug. 01").assertIsDisplayed()
+        composeRule.onNodeWithText("Aug. 31").assertIsDisplayed()
+
+        composeRule.onNodeWithText("Done").performClick()
+        composeRule.onNodeWithText("Upcoming").performClick()
+
+        composeRule.onNodeWithText("Transaction1").assertDoesNotExist()
+        composeRule.onNodeWithText("Transaction2").assertIsDisplayed()
+        composeRule.onNodeWithText("Transaction3").assertIsDisplayed()
+
+//        HomeScreenRobot(composeRule)
+//            .navigateTo(navigator)
+//            .openDateRangeSheet(timeProvider)
+//            .selectMonth("August")
+//            .assertDateIsDisplayed(1, "August")
+//            .assertDateIsDisplayed(31, "August")
+//            .clickDone()
+//            .clickUpcoming()
+//            .assertTransactionDoesNotExist("Transaction1")
+//            .assertTransactionIsDisplayed("Transaction2")
+//            .assertTransactionIsDisplayed("Transaction3")
     }
 
     @Test

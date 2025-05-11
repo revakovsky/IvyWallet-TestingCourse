@@ -1,12 +1,26 @@
 package com.ivy.home
 
-import androidx.compose.animation.*
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +66,7 @@ fun BoxScope.HomeScreen() {
     )
 }
 
+
 @Composable
 private fun BoxScope.UI(
     state: HomeStateUi,
@@ -59,9 +74,8 @@ private fun BoxScope.UI(
 ) {
     val periodModal = rememberIvyModal()
 
-    val trnsListState = rememberTransactionsListState(
-        scrollStateKey = "home_tab"
-    )
+    val trnsListState = rememberTransactionsListState(scrollStateKey = "home_tab")
+
     TransactionsLazyColumn(
         modifier = Modifier
             .systemBarsPadding()
@@ -125,6 +139,7 @@ private fun BoxScope.UI(
     )
 }
 
+
 // region Header
 fun LazyListScope.header(
     periodModal: IvyModal,
@@ -162,6 +177,7 @@ fun LazyListScope.header(
         DividerHor()
     }
 }
+
 
 @OptIn(ExperimentalFoundationApi::class)
 private fun LazyListScope.toolbar(
@@ -212,6 +228,7 @@ private fun LazyListScope.toolbar(
     }
 }
 
+
 @Composable
 private fun CollapsedToolbarExtension(
     balance: ValueUi,
@@ -248,6 +265,7 @@ private fun CollapsedToolbarExtension(
     }
 }
 // endregion
+
 
 // region Modals
 @Composable
